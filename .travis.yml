@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t avinash/multi-docker -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run avinash/multi-docker npm test -- --coverage
+
+after_success:
+  - docker build -t avinash/multi-client ./client
+  - docker build -t avinash/multi-nginx ./nginx
+  - docker build -t avinash/multi-server ./server
+  - docker build -t avinash/multi-worker ./worker
+
+  -  echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  - docker push avinash/multi-client
+  - docker push avinash/multi-nginx
+  - docker push avinash/multi-server
+  - docker push avinash/multi-worker
