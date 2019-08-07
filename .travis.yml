@@ -14,7 +14,7 @@ after_success:
   - docker build -t acloudman/multi-server ./server
   - docker build -t acloudman/multi-worker ./worker
 
-  -  echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  -  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push acloudman/multi-client
   - docker push acloudman/multi-nginx
   - docker push acloudman/multi-server
