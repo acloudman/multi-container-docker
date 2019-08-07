@@ -3,19 +3,19 @@ services:
   - docker
 
 before_install:
-  - docker build -t avinash/multi-docker -f ./client/Dockerfile.dev ./client
+  - docker build -t acloudman/multi-docker -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run avinash/multi-docker npm test -- --coverage
+  - docker run acloudman/multi-docker npm test -- --coverage
 
 after_success:
-  - docker build -t avinash/multi-client ./client
-  - docker build -t avinash/multi-nginx ./nginx
-  - docker build -t avinash/multi-server ./server
-  - docker build -t avinash/multi-worker ./worker
+  - docker build -t acloudman/multi-client ./client
+  - docker build -t acloudman/multi-nginx ./nginx
+  - docker build -t acloudman/multi-server ./server
+  - docker build -t acloudman/multi-worker ./worker
 
   -  echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
-  - docker push avinash/multi-client
-  - docker push avinash/multi-nginx
-  - docker push avinash/multi-server
-  - docker push avinash/multi-worker
+  - docker push acloudman/multi-client
+  - docker push acloudman/multi-nginx
+  - docker push acloudman/multi-server
+  - docker push acloudman/multi-worker
